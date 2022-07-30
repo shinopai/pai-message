@@ -848,6 +848,9 @@ select {
 .w-auto {
   width: auto;
 }
+.w-\[80\%\] {
+  width: 80%;
+}
 .w-full {
   width: 100%;
 }
@@ -1047,6 +1050,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(163 210 4 / var(--tw-bg-opacity));
 }
+.bg-\[\#09EE93\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(9 238 147 / var(--tw-bg-opacity));
+}
 .bg-\[\#EE0964\] {
   --tw-bg-opacity: 1;
   background-color: rgb(238 9 100 / var(--tw-bg-opacity));
@@ -1120,6 +1127,9 @@ select {
 }
 .pt-8 {
   padding-top: 2rem;
+}
+.pt-\[3\%\] {
+  padding-top: 3%;
 }
 .pb-\[2\%\] {
   padding-bottom: 2%;
@@ -1551,10 +1561,6 @@ select {
 
   .sm\:flex-row {
     flex-direction: row;
-  }
-
-  .sm\:flex-col {
-    flex-direction: column;
   }
 
   .sm\:items-center {

@@ -15,7 +15,8 @@ class Message extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'body'
+        'body',
+        'room_id'
     ];
 
     /**
@@ -23,5 +24,9 @@ class Message extends Model
      */
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function Room(){
+        return $this->belongsTo(Room::class);
     }
 }

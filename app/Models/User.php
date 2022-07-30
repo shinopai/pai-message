@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\User;
+use App\Models\Room;
 
 class User extends Authenticatable
 {
@@ -51,5 +53,25 @@ class User extends Authenticatable
 
     public function rooms(){
         return $this->hasMany(Room::class);
+    }
+
+    /**
+     * some functions
+     */
+    public static function isRoomExists($user_id, $partner_id){
+        $arr = array($user_id, $partner_id);
+        $res = Room::whereIn('user_id', $arr)->whereIn('partner_id', $arr)->first();
+
+        if(isset($res)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static function getRoomId($user_id, $partner_id){
+        $res = User::find(1)->rooms()->where('partner_id', 83)->value('id');
+
+        return $res;
     }
 }

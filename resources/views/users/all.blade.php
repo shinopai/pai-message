@@ -23,6 +23,14 @@
           >
             {{ $user->name }}
           </h2>
+          @if(App\Models\User::isRoomExists(Auth::id(), $user->id))
+          <?php $room_id = App\Models\User::getRoomId(Auth::id(), $user->id) ?>
+          <a
+            href="{{ route('rooms.show_room', ['room' => $room_id, 'user' => Auth::id(), 'partner' => $user->id]) }}"
+            class="bg-[#09EE93] text-white block text-center w-[200px] rounded-[5px] text-[1.6rem] font-bold p-[0.5em]"
+            >チャットルームへ移動</a
+          >
+          @else
           <form
             action="{{ route('rooms.store_room', ['user' => Auth::id(), 'partner_id' => $user->id]) }}"
             method="post"
@@ -35,6 +43,7 @@
               チャットする
             </button>
           </form>
+          @endif
         </div>
       </div>
     </section>

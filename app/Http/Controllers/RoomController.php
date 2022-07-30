@@ -12,8 +12,8 @@ class RoomController extends Controller
         return $this->middleware('auth');
     }
 
-    public function showRoom(Room $room){
-        return view('rooms.show', ['room' => $room->id]);
+    public function showRoom(Request $request, Room $room, User $user){
+        return view('rooms.show', ['room' => $room->id, 'user' => $user->id, 'partner' => $request->partner]);
     }
 
     public function storeRoom(Request $request, User $user){
