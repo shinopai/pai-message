@@ -63,8 +63,9 @@
       </button>
     </div>
   </form>
-  <div class="relative w-full p-6 overflow-y-scroll">
-              <ul v-if="messages" class="space-y-2" id="message__outer">
+  <div class="relative w-full p-6 message__outer">
+    <div v-if="messages">
+              <ul id="message__inner" class="space-y-2">
                 <li v-for="message in messages" :key="message" class="flex" :class="[message.user_id === userId ? 'justify-end' : 'justify-start']">
                   <div class="relative max-w-xl px-4 py-2 text-gray-700 rounded shadow" :class="[message.user_id == userId ? 'bg-gray-100' : '']">
                     <span class="block">{{ message.body }}</span>
@@ -73,6 +74,7 @@
                   </div>
                 </li>
               </ul>
+              </div>
               <p v-else class="text-center">メッセージはありません</p>
             </div>
             </div>
@@ -93,14 +95,11 @@ export default {
     let newMessage = ref()
     const dayjs = inject('dayjs')
 
-    console.log(userId);
-
     // get all messages
     const getMessages = async () => {
       await Axios.get('/api/rooms/' + roomId + '/get_messages')
                   .then( res => {
                     messages.value = res.data
-                    console.log(messages.value);
                  })
                  .catch( err => {
                    console.log(err.response.data.message)
@@ -123,6 +122,11 @@ export default {
 
     onMounted(() => {
       getMessages();
+      window.onload = ()=>{
+      let target = document.getElementById('message__inner');
+      console.log(target);
+      target.scrollIntoView(false);
+    }
     })
 
     return {
@@ -136,8 +140,11 @@ export default {
     }
   },
 }
-window.addEventListener('DOMContentLoaded', ()=>{
-  let target = document.getElementById('message__outer');
-  target.scrollIntoView(false);
-});
 </script>
+
+<style>
+  .message__outer{
+    overflow-y: scroll;
+    height: 420px;
+  }
+</style>
